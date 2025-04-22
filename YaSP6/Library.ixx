@@ -69,8 +69,18 @@ public:
 	}
 	friend std::istream& operator>>(std::istream& in, Library<T>& lib)
 	{
-		std::istream_iterator<T> it(in);
-		lib.read(it);
+		std::istream_iterator<T> it_in(in);
+		std::istream_iterator<T> end_in;
+		while (it_in != end_in) {
+			lib.container.push_back(*it_in);
+			in.ignore();
+			if (in.fail() || in.bad() || in.eof())
+				return in;
+			else
+			{
+				++it_in;
+			}
+		}
 		return in;
 	}
 };

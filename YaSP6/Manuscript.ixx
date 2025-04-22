@@ -89,7 +89,7 @@ public:
 
         if (!tmp.read_type(str))
         {
-            if (str == delim_line)
+            if (str.find('=') != std::string::npos)
             {
                 in.setstate(std::ios::eofbit);
                 return in;
@@ -114,9 +114,7 @@ public:
         if (!std::getline(in, tmp.text)) {
             throw std::invalid_argument("Ошибка чтения текста");
         }
-
-        in.ignore();
-
+        
         manuscript = tmp;
         return in;
     }

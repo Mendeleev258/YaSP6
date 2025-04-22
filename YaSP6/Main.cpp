@@ -20,4 +20,8 @@ int main()
 	Temple temple2{};
 	file >> temple2;
 	std::cout << temple2;
+
+	Temple temple3{};
+	file >> temple3;
+	std::cout << temple3;
 }
