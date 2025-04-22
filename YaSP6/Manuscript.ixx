@@ -63,7 +63,8 @@ public:
     }
 	Manuscript(manuscript_type type, std::string author, std::chrono::year_month_day date, std::string text) :
 		type(type), author(author), date(date), text(text) {}
-	manuscript_type get_type() const { return type; }
+	
+    manuscript_type get_type() const { return type; }
 	std::string get_author() const { return author; }
 	std::string get_text() const { return text; }
 	std::chrono::year_month_day get_date() const { return date; }
@@ -114,9 +115,18 @@ public:
         if (!std::getline(in, tmp.text)) {
             throw std::invalid_argument("Ошибка чтения текста");
         }
+
+        if (!in.ignore()) {
+            throw std::ios_base::failure("Ошибка при пропуске символа после текста");
+        }
         
         manuscript = tmp;
         return in;
+    }
+
+    bool operator<(const Manuscript& other) const
+    {
+        return this->author < other.author;
     }
 
     friend bool operator==(const Manuscript& lvalue, const Manuscript& rvalue)

@@ -50,18 +50,22 @@ public:
 		std::copy_if(container.begin(), container.end(), std::back_inserter(result.container), predicate);
 		return result;
 	}
+	T& operator[](size_t index) {
+		if (index >= container.size()) {
+			throw std::out_of_range("Индекс выходит за границы библиотеки!");
+		}
+		return container[index];
+	}
+	T& get_left() { return container[0]; }
+	T& get_right() { return container[size() - 1]; }
 	void read(std::istream_iterator<T> it)
 	{
 		container.clear();
 		std::istream_iterator<T> eos;
-		while (it != eos)
-		{
-			container.push_back(*it);
-			++it;
-		}
+		std::copy(it, eos, std::back_inserter(container));
 	}
-	void print(std::ostream_iterator<T> it) { std::copy(container.begin(), container.end(), it); }
-	friend std::ostream& operator<<(std::ostream& out, Library<T>& lib)
+	void print(std::ostream_iterator<T> it) const { std::copy(container.begin(), container.end(), it); }
+	friend std::ostream& operator<<(std::ostream& out, const Library<T>& lib)
 	{
 		std::ostream_iterator<T> it(out, "\n");
 		lib.print(it);
@@ -69,18 +73,8 @@ public:
 	}
 	friend std::istream& operator>>(std::istream& in, Library<T>& lib)
 	{
-		std::istream_iterator<T> it_in(in);
-		std::istream_iterator<T> end_in;
-		while (it_in != end_in) {
-			lib.container.push_back(*it_in);
-			in.ignore();
-			if (in.fail() || in.bad() || in.eof())
-				return in;
-			else
-			{
-				++it_in;
-			}
-		}
+		std::istream_iterator<T> it(in);
+		lib.read(it);
 		return in;
 	}
 };
