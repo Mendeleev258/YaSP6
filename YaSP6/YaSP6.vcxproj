@@ -138,6 +138,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="output.txt" />
     <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

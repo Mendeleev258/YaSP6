@@ -6,22 +6,19 @@
 import Manuscript;
 import Library;
 import Temple;
+import TempleList;
+
+
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	Temple temple1{};
+	
 	std::ifstream file("test.txt");
-	file >> temple1;
-	std::cout << temple1;
-
-	file.clear();
-	Temple temple2{};
-	file >> temple2;
-	std::cout << temple2;
-
-	Temple temple3{};
-	file >> temple3;
-	std::cout << temple3;
+	TempleList templeList;
+	std::ofstream out_file("output.txt");
+	file >> templeList;
+	std::cout << templeList;
+	templeList.about(std::cout);
 }

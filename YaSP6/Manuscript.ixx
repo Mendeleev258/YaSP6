@@ -68,6 +68,7 @@ public:
 	std::string get_author() const { return author; }
 	std::string get_text() const { return text; }
 	std::chrono::year_month_day get_date() const { return date; }
+    bool empty() const { return text.empty() && author.empty(); }
     
     friend std::ostream& operator<<(std::ostream& out, const Manuscript& manuscript)
     {
@@ -90,13 +91,8 @@ public:
 
         if (!tmp.read_type(str))
         {
-            if (str.find('=') != std::string::npos)
-            {
-                in.setstate(std::ios::eofbit);
-                return in;
-            }
             if (in.eof()) return in;
-            throw std::invalid_argument("Недопустимое значение типа манускрипта\n");
+            throw std::invalid_argument("Недопустимое значение типа манускрипта: " + str + "\n");
         }
 
         if (!std::getline(in, tmp.author)) {

@@ -44,6 +44,7 @@ public:
 		container[size() - 1] = value; 
 	}
 	size_t size() { return container.size(); }
+	bool empty() const { return container.empty(); }
 	Library<T> selection(std::function<bool(const T&)> predicate)
 	{
 		Library<T> result;

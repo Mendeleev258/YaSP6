@@ -116,14 +116,19 @@ public:
 		return in;
 	}
 
-	void about(std::ostream& out)
-	{
+    void about(std::ostream& out)
+    {
 		uint sum_size{};
 		uint sum_count_table{}, sum_count_parchment{}, sum_count_scroll{}, sum_count_book{};
 		std::set<Manuscript> set;
+
+		out << "=== Информация о храмах и рукописях ===\n\n";
+
 		for (auto t : temples)
 		{
-			out << t.get_temple_name() << ": " << t.get_library().size() << " шт.\n";
+			out << "Храм: " << t.get_temple_name() << "\n"
+				<< "Количество рукописей: " << t.get_library().size() << " шт.\n"
+				<< "--------------------------------------\n";
 			sum_size += t.get_library().size();
 			for (size_t i{}; i < t.get_library().size(); ++i)
 			{
@@ -145,14 +150,17 @@ public:
 				set.insert(t.get_library()[i]);
 			}
 		}
-		out << '\n'
-			<< "Число храмов:" << size() << '\n'
-			<< "Суммарное число рукописей: " << sum_size << '\n'
-			<< "Суммарное число уникальных рукописей: " << set.size() << '\n'
-			<< "Суммарное число\n"
-			<< "\tТабличек: " << sum_count_table << '\n'
-			<< "\tПергаментов: " << sum_count_parchment << '\n'
-			<< "\tСвитков: " << sum_count_scroll << '\n'
-			<< "\tКниг: " << sum_count_book << '\n';
-	}
+
+		out << "\n=== Сводная информация ===\n"
+			<< "Общее число храмов: " << size() << "\n"
+			<< "Общее число рукописей: " << sum_size << "\n"
+			<< "Уникальных рукописей: " << set.size() << "\n"
+			<< "--------------------------------------\n"
+			<< "Типы рукописей:\n"
+			<< "* Табличек: " << sum_count_table << "\n"
+			<< "* Пергаментов: " << sum_count_parchment << "\n"
+			<< "* Свитков: " << sum_count_scroll << "\n"
+			<< "* Книг: " << sum_count_book << "\n"
+			<< "======================================\n";
+    }
 };
