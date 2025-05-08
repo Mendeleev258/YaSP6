@@ -18,6 +18,7 @@ private:
 	std::string author;
 	std::string text;
 	std::chrono::year_month_day date;
+    
     std::string type_to_string() const
     {
         switch (type)
@@ -28,6 +29,7 @@ private:
         case Book: return "Книга";
         }
     }
+    
     bool read_type(std::string str)
     {
         if (str == "Табличка")
@@ -54,6 +56,7 @@ private:
     }
 public:
 	Manuscript() {}
+    
     Manuscript(const Manuscript& other)
     {
         this->text = other.text;
@@ -61,13 +64,18 @@ public:
         this->type = other.type;
         this->date = other.date;
     }
-	Manuscript(manuscript_type type, std::string author, std::chrono::year_month_day date, std::string text) :
+	
+    Manuscript(manuscript_type type, std::string author, std::chrono::year_month_day date, std::string text) :
 		type(type), author(author), date(date), text(text) {}
 	
     manuscript_type get_type() const { return type; }
-	std::string get_author() const { return author; }
-	std::string get_text() const { return text; }
-	std::chrono::year_month_day get_date() const { return date; }
+	
+    std::string get_author() const { return author; }
+	
+    std::string get_text() const { return text; }
+	
+    std::chrono::year_month_day get_date() const { return date; }
+    
     bool empty() const { return text.empty() && author.empty(); }
     
     friend std::ostream& operator<<(std::ostream& out, const Manuscript& manuscript)

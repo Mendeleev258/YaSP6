@@ -14,6 +14,8 @@ export import Temple;
 
 export module TempleList;
 
+constexpr const char* SAVE_FILE_NAME = "StateData.txt";
+
 export class TempleList
 {
 private:
@@ -28,9 +30,35 @@ private:
 		return dist(gen);
 	}
 
+	void load_state()
+	{
+		std::fstream file(SAVE_FILE_NAME, std::ios::out | std::ios::in);
+
+		if (!file.is_open()) // if file is not exists
+			file.open(SAVE_FILE_NAME, std::ios::out);
+		else
+			file >> *this;
+
+		file.close();
+	}
+
+	void save_state()
+	{
+		std::ofstream file(SAVE_FILE_NAME);
+		file << *this;
+	}
+
 public:
 
-	TempleList() {}
+	TempleList() 
+	{
+		load_state();
+	}
+
+	~TempleList() 
+	{
+		save_state();
+	}
 
 	void add(const Temple& other) { return temples.push_back(other); }
 
