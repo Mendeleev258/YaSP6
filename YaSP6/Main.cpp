@@ -4,7 +4,6 @@
 #include "Windows.h"
 #include "IOlib.h"
 
-
 import Manuscript;
 import Library;
 import Temple;
@@ -116,7 +115,7 @@ int main()
 							if (temple_menu_choice != 7)
 							{
 								std::string temple_name = input("Введите название храма для редактирования");
-								Library<Manuscript> library = temples.get_temple_ref(temple_name).get_library();
+								Library<Manuscript>& library = temples.get_temple_ref(temple_name).get_library();
 
 								switch (temple_menu_choice)
 								{
